@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+/* src/styles.scss */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Styles globaux additionnels ici */
+body {
+  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+  font-family: 'Inter', sans-serif; /* Exemple de police, à installer si besoin */
+}
