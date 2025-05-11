@@ -1,0 +1,20 @@
+<div class="p-4 flex space-x-4">
+  <app-date-range-picker
+    (rangeChange)="onRange($event)"></app-date-range-picker>
+  <button (click)="loadLast()" class="btn-primary">Dernières</button>
+</div>
+
+<app-trend-line-chart
+  [data]="measurements"
+  class="p-4"></app-trend-line-chart>
+
+<table *ngIf="measurements.length" class="min-w-full divide-y">
+  <thead>…</thead>
+  <tbody>
+    <tr *ngFor="let m of measurements">
+      <td>{{ m.timestamp | date:'short' }}</td>
+      <td>{{ m.value }}</td>
+      <td>{{ m.sensorId }}</td>
+    </tr>
+  </tbody>
+</table>

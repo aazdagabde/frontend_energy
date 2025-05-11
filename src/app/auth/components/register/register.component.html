@@ -1,0 +1,126 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  class="max-w-md mx-auto p-6 space-y-4"
+>
+  <h2 class="text-2xl font-semibold text-center">
+    Inscription
+  </h2>
+
+  <div>
+    <label class="block mb-1">Utilisateur</label>
+    <input
+      formControlName="username"
+      type="text"
+      class="w-full border rounded p-2"
+      placeholder="Votre nom d’utilisateur"
+    />
+    <div
+      *ngIf="form.get('username')?.invalid && form.get('username')?.touched"
+      class="text-red-500 text-sm"
+    >
+      Le nom d’utilisateur est requis.
+    </div>
+  </div>
+
+  <div>
+    <label class="block mb-1">Email</label>
+    <input
+      formControlName="email"
+      type="email"
+      class="w-full border rounded p-2"
+      placeholder="exemple@domaine.com"
+    />
+    <div
+      *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+      class="text-red-500 text-sm"
+    >
+      Entrez une adresse email valide.
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <label class="block mb-1">Mot de passe</label>
+      <input
+        formControlName="password"
+        type="password"
+        class="w-full border rounded p-2"
+        placeholder="•••••••"
+      />
+      <div
+        *ngIf="
+          form.get('password')?.invalid &&
+          form.get('password')?.touched
+        "
+        class="text-red-500 text-sm"
+      >
+        Minimum 3 caractères.
+      </div>
+    </div>
+    <div>
+      <label class="block mb-1">Confirmer</label>
+      <input
+        formControlName="confirm"
+        type="password"
+        class="w-full border rounded p-2"
+        placeholder="•••••••"
+      />
+      <div
+        *ngIf="form.errors?.['noMatch'] && form.get('confirm')?.touched"
+        class="text-red-500 text-sm"
+      >
+        Les mots de passe ne correspondent pas.
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label class="block mb-1">Nom</label>
+    <input
+      formControlName="nom"
+      type="text"
+      class="w-full border rounded p-2"
+      placeholder="Votre nom"
+    />
+  </div>
+
+  <div>
+    <label class="block mb-1">Prénom</label>
+    <input
+      formControlName="prenom"
+      type="text"
+      class="w-full border rounded p-2"
+      placeholder="Votre prénom"
+    />
+  </div>
+
+  <div>
+    <label class="block mb-1">Téléphone</label>
+    <input
+      formControlName="telephone"
+      type="tel"
+      class="w-full border rounded p-2"
+      placeholder="0612345678"
+    />
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="loading"
+    class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded"
+  >
+    {{ loading ? 'Inscription...' : 'Créer un compte' }}
+  </button>
+
+  <div *ngIf="error" class="text-red-600 text-center">
+    {{ error }}
+  </div>
+
+  <p class="text-center text-sm">
+    Déjà inscrit ?
+    <a routerLink="/auth/login" class="text-blue-500 hover:underline"
+      >Connexion</a
+    >
+  </p>
+</form>

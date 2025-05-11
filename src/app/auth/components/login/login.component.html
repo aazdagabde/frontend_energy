@@ -1,0 +1,23 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="p-6 max-w-sm mx-auto">
+  <h2 class="text-2xl mb-4">Connexion</h2>
+
+  <label class="block mb-1">Utilisateur</label>
+  <input formControlName="username" type="text"
+         class="w-full border rounded p-2 mb-3"/>
+
+  <label class="block mb-1">Mot de passe</label>
+  <input formControlName="password" type="password"
+         class="w-full border rounded p-2 mb-3"/>
+
+  <button type="submit" [disabled]="loading"
+          class="w-full bg-blue-600 text-white py-2 rounded">
+    {{ loading ? 'Connexion...' : 'Se connecter' }}
+  </button>
+
+  <p class="mt-4 text-center">
+    Pas de compte ?
+    <a routerLink="/auth/register" class="text-blue-500">Inscription</a>
+  </p>
+
+  <div *ngIf="error" class="mt-3 text-red-600">{{ error }}</div>
+</form>

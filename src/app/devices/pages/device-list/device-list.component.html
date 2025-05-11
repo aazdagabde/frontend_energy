@@ -1,0 +1,26 @@
+<div class="flex justify-between items-center p-4">
+  <h1 class="text-xl font-semibold">Capteurs</h1>
+  <button (click)="openForm()" class="btn-primary">+ Ajouter</button>
+</div>
+
+<table class="min-w-full divide-y divide-gray-200">
+  <thead>…</thead>
+  <tbody>
+    <tr *ngFor="let s of sensors$ | async">
+      <td>{{ s.name }}</td>
+      <td>{{ s.room }}</td>
+      <td>{{ s.type }}</td>
+      <td class="text-right">
+        <button (click)="edit(s)" class="text-blue-500">✏️</button>
+        <button (click)="delete(s.id)" class="text-red-500">🗑️</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<app-device-form
+  *ngIf="formVisible"
+  [sensor]="edited"
+  (save)="onSave($event)"
+  (cancel)="formVisible = false">
+</app-device-form>

@@ -1,0 +1,13 @@
+/* Responsive max-width */
+:host {
+  display: block;
+  width: 100%;
+  @media (min-width: 640px) {
+    max-width: 400px;
+  }
+}
+
+/* Espacements personnalisés */
+form {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow p-6;
+}
