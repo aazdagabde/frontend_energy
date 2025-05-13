@@ -1,0 +1,19 @@
+<header class="flex items-center justify-between px-6 py-4 bg-white dark:bg-neutral-800 shadow-md">
+  <div class="flex items-center space-x-4">
+    <button (click)="toggleSideNav()" class="md:hidden text-neutral-700 dark:text-neutral-200 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-neutral-700 transition-colors">
+      &#9776;
+    </button>
+    <h1 class="text-xl md:text-2xl font-bold text-primary-dark dark:text-primary-light">Energy Monitor</h1>
+  </div>
+  <div class="flex items-center space-x-4 md:space-x-6">
+    <span class="text-neutral-700 dark:text-neutral-300 text-sm md:text-base">
+      {{ user?.prenom }} {{ user?.nom }}
+    </span>
+    <button (click)="logout()" class="text-secondary hover:text-secondary-dark transition-colors text-sm md:text-base">
+      Déconnexion
+    </button>
+    <button (click)="toggleTheme()" aria-label="Toggle dark mode" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 transition-colors">
+      🌓
+    </button>
+  </div>
+</header>

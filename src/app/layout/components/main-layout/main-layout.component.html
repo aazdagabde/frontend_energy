@@ -1,11 +1,11 @@
-<div class="flex h-screen">
-  <app-side-nav></app-side-nav>
-  <div class="flex-1 flex flex-col overflow-hidden">
-    <app-header></app-header>
-    <main
-      class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-800 p-4 md:p-6"
-    >
-      <router-outlet></router-outlet>
+<div class="min-h-screen flex flex-col bg-neutral-100 dark:bg-neutral-900">
+  <app-header></app-header>
+  <div class="flex flex-1">
+    <app-side-nav class="hidden md:block flex-shrink-0"></app-side-nav>
+    <main class="flex-1 p-4 md:p-8 bg-gray-50 dark:bg-neutral-800 transition-all duration-300">
+      <div class="max-w-7xl mx-auto">
+        <router-outlet></router-outlet>
+      </div>
     </main>
   </div>
 </div>

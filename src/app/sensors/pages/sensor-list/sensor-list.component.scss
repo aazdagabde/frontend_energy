@@ -1,0 +1,8 @@
+:host {
+  display: block;
+}
+
+// Amélioration hover pour tous les items
+li {
+  transition: background-color 0.2s ease-in-out;
+}

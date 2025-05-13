@@ -1,0 +1,112 @@
+<!-- src/app/sensors/pages/sensor-list/sensor-list.component.html -->
+<div class="min-h-screen bg-gray-50 p-6">
+  <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <!-- Onglets -->
+    <nav class="flex border-b bg-white">
+      <button
+        (click)="selectTab('list')"
+        [ngClass]="{
+          'border-blue-600 text-blue-600': activeTab === 'list',
+          'text-gray-600 hover:text-gray-800': activeTab !== 'list'
+        }"
+        class="flex-1 py-3 text-center font-medium border-b-2 transition"
+      >
+        Liste des capteurs
+      </button>
+      <button
+        (click)="selectTab('add')"
+        [ngClass]="{
+          'border-blue-600 text-blue-600': activeTab === 'add',
+          'text-gray-600 hover:text-gray-800': activeTab !== 'add'
+        }"
+        class="flex-1 py-3 text-center font-medium border-b-2 transition"
+      >
+        <span class="inline-flex items-center justify-center">
+          <svg class="h-5 w-5 mr-1 fill-current" viewBox="0 0 20 20">
+            <path d="M10 5v10m5-5H5"/>
+          </svg>
+          Ajouter un capteur
+        </span>
+      </button>
+    </nav>
+
+    <div class="p-6">
+      <!-- Liste des capteurs -->
+      <div *ngIf="activeTab === 'list'">
+        <ul class="space-y-4">
+          <li
+            *ngFor="let s of sensors"
+            class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
+          >
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">{{ s.ref }}</h3>
+              <p class="text-sm text-gray-600">
+                {{ s.type }}
+              </p>
+            </div>
+            <time class="mt-2 sm:mt-0 text-gray-500 text-sm">
+              Installé le {{ s.installedAt | date:'short' }}
+            </time>
+          </li>
+        </ul>
+        <div *ngIf="!sensors.length && !loadingSensors" class="text-center text-gray-500 py-10">
+          Aucun capteur trouvé.
+        </div>
+        <div *ngIf="loadingSensors" class="text-center text-gray-500 py-10">
+          Chargement…
+        </div>
+      </div>
+
+      <!-- Formulaire d’ajout -->
+      <div *ngIf="activeTab === 'add'">
+        <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-700 mb-1">Pièce</label>
+              <select
+                formControlName="room"
+                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              >
+                <option *ngFor="let r of rooms" [value]="r.name">
+                  {{ r.name }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-gray-700 mb-1">Type</label>
+              <input
+                formControlName="type"
+                type="text"
+                placeholder="e.g. TEMP"
+                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 mb-1">Référence</label>
+            <input
+              formControlName="ref"
+              type="text"
+              placeholder="e.g. DHT22"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <button
+            type="submit"
+            [disabled]="creating"
+            class="w-full bg-blue-700 hover:bg-blue-800 disabled:opacity-50 text-white py-3 rounded-lg font-medium transition"
+          >
+            <span *ngIf="!creating">Créer</span>
+            <span *ngIf="creating">Création…</span>
+          </button>
+
+          <div *ngIf="formError" class="text-red-600 text-center mt-2">
+            {{ formError }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

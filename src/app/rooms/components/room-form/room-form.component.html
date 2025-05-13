@@ -1,0 +1,6 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-2">
+  <input formControlName="name" placeholder="Nom de la pièce" class="w-full border p-2 rounded"/>
+  <button type="submit" class="btn-primary" [disabled]="form.invalid">
+    Créer
+  </button>
+</form>

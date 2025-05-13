@@ -1,0 +1,9 @@
+// si vous voulez surcharger ou ajouter des animations
+:host {
+  display: block;
+}
+
+// Exemple : animation de hover plus douce sur les items
+li {
+  transition: background-color 0.2s ease-in-out;
+}

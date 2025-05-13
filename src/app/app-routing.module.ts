@@ -1,16 +1,17 @@
-import { NgModule } from '@angular/core';
+import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
-import { MainLayoutComponent } from './layout/components/main-layout/main-layout.component';
+import { AuthGuard }            from './core/guards/auth.guard';
+import { MainLayoutComponent }  from './layout/components/main-layout/main-layout.component';
 
 const routes: Routes = [
-  // Auth (login/register)
+  // Auth hors layout
   {
     path: 'auth',
     loadChildren: () =>
       import('./auth/auth.module').then(m => m.AuthModule)
   },
-  // Dashboard sous le layout protégé
+
+  // Toutes les autres routes sous MainLayout
   {
     path: '',
     component: MainLayoutComponent,
@@ -21,10 +22,26 @@ const routes: Routes = [
         loadChildren: () =>
           import('./dashboard/dashboard.module').then(m => m.DashboardModule)
       },
+      {
+        path: 'rooms',
+        loadChildren: () =>
+          import('./rooms/rooms.module').then(m => m.RoomsModule)
+      },
+      {
+        path: 'sensors',
+        loadChildren: () =>
+          import('./sensors/sensors.module').then(m => m.SensorsModule)
+      },
+      {
+        path: 'measurements',
+        loadChildren: () =>
+          import('./measurements/measurements.module').then(m => m.MeasurementsModule)
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
-  // Tout autre → login
+
+  // Fallback
   { path: '**', redirectTo: 'auth/login' }
 ];
 

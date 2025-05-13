@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  background-color: #2675c4; // gray-50
+}
+
+.bg-primary {
+  @apply bg-blue-800;
+}
+.hover\:bg-primary-dark:hover {
+  @apply bg-blue-900;
+}
+.focus\:ring-primary-light:focus {
+  @apply ring-2 ring-blue-500;
+}
+.focus\:border-primary-light:focus {
+  @apply border-blue-500;
+}

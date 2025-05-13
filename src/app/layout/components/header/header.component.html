@@ -1,1 +1,16 @@
-<p>header works!</p>
+<header class="bg-white dark:bg-neutral-800 shadow-md py-4 px-6">
+  <div class="container mx-auto flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-primary-dark dark:text-primary-light">Energy Monitor</h1>
+    <div class="flex items-center space-x-4">
+      <span class="text-neutral-700 dark:text-neutral-300">
+        {{ user?.prenom }} {{ user?.nom }}
+      </span>
+      <button (click)="logout()" class="text-secondary hover:text-secondary-dark transition-colors">
+        Déconnexion
+      </button>
+      <button (click)="toggleTheme()" aria-label="Toggle dark mode" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-700 transition-colors">
+        🌓
+      </button>
+    </div>
+  </div>
+</header>

@@ -1,14 +1,9 @@
-import { NgModule }      from '@angular/core';
+import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard }     from '../core/guards/auth.guard';
 import { DashboardOverviewComponent } from './pages/dashboard-overview/dashboard-overview.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: DashboardOverviewComponent,
-    canActivate: [AuthGuard]
-  }
+  { path: '', component: DashboardOverviewComponent }
 ];
 
 @NgModule({

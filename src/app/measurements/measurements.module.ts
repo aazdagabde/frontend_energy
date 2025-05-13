@@ -1,23 +1,35 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+// ajoutez FormsModule
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// imports ng2-charts
+import {
+  BaseChartDirective,
+  provideCharts,
+  withDefaultRegisterables
+} from 'ng2-charts';
 
 import { MeasurementsRoutingModule } from './measurements-routing.module';
-import { MeasurementsComponent } from './measurements.component';
 import { MeasurementsViewComponent } from './pages/measurements-view/measurements-view.component';
-import { DateRangePickerComponent } from './components/date-range-picker/date-range-picker.component';
-import { TrendLineChartComponent } from './components/trend-line-chart/trend-line-chart.component';
-
+import { FilterPanelComponent } from './components/filter-panel/filter-panel.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
 
 @NgModule({
   declarations: [
-    MeasurementsComponent,
     MeasurementsViewComponent,
-    DateRangePickerComponent,
-    TrendLineChartComponent
+    FilterPanelComponent,
+    LineChartComponent,
+   
   ],
   imports: [
-    CommonModule,
+    CommonModule,           // directives de base + pipes (date)
+    FormsModule,            // ← permet [(ngModel)]
+    ReactiveFormsModule,    // ← pour ReactiveForms elsewhere
+    BaseChartDirective,     // ← directive baseChart
     MeasurementsRoutingModule
+  ],
+  providers: [
+    provideCharts(withDefaultRegisterables())
   ]
 })
-export class MeasurementsModule { }
+export class MeasurementsModule {}

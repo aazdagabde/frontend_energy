@@ -1,0 +1,61 @@
+<div class="min-h-screen bg-gray-50 p-6">
+  <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <!-- Onglets -->
+    <nav class="flex border-b bg-white">
+      <button
+        (click)="selectTab('list')"
+        [ngClass]="{
+          'border-blue-600 text-blue-600': activeTab === 'list',
+          'text-gray-600 hover:text-gray-800': activeTab !== 'list'
+        }"
+        class="flex-1 py-3 text-center font-medium border-b-2 transition"
+      >
+        Liste des pièces
+      </button>
+      <button
+        (click)="selectTab('add')"
+        [ngClass]="{
+          'border-blue-600 text-blue-600': activeTab === 'add',
+          'text-gray-600 hover:text-gray-800': activeTab !== 'add'
+        }"
+        class="flex-1 py-3 text-center font-medium border-b-2 transition"
+      >
+        <span class="inline-flex items-center justify-center">
+          <svg class="h-5 w-5 mr-1 fill-current" viewBox="0 0 20 20">
+            <path d="M10 5v10m5-5H5"/>
+          </svg>
+          Ajouter une pièce
+        </span>
+      </button>
+    </nav>
+
+    <!-- Contenu Onglets -->
+    <div class="p-6">
+      <!-- Liste -->
+      <div *ngIf="activeTab === 'list'">
+        <ul class="space-y-4">
+          <li
+            *ngFor="let r of rooms"
+            class="flex justify-between items-center p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
+          >
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">{{ r.name }}</h3>
+              <p class="text-sm text-gray-600">
+                {{ r.sensors.length }} capteur{{ r.sensors.length > 1 ? 's' : '' }}
+              </p>
+            </div>
+            <span class="text-gray-500 text-sm">{{ r.id | slice:0:8 }}</span>
+          </li>
+        </ul>
+        <div *ngIf="!rooms.length" class="text-center text-gray-500 py-10">
+          Aucune pièce disponible.
+        </div>
+      </div>
+
+      <!-- Formulaire d'ajout -->
+      <div *ngIf="activeTab === 'add'">
+        <app-room-form (created)="onCreated($event)"></app-room-form>
+      </div>
+    </div>
+  </div>
+</div>

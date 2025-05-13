@@ -1,9 +1,13 @@
 // Auth
 export interface LoginDto      { username: string; password: string; }
 export interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
+  token: string;
   tokenType:    string;
+  userId:        string;
+  username:     string;  // ajouté
+  nom:          string;  // ajouté
+  prenom:       string;  // ajouté
+  roles:    string[];  // ajouté
 }
 export interface RegisterDto {
   username:  string;

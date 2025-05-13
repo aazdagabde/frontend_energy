@@ -5,12 +5,15 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     SideNavComponent,
-    MainLayoutComponent
+    MainLayoutComponent,
+    NavbarComponent,
+    
   ],
   imports: [CommonModule, RouterModule],
   exports: [MainLayoutComponent]

@@ -1,1 +1,53 @@
-<p>side-nav works!</p>
+<nav 
+  [class]="open ? 'fixed inset-0 z-40 md:relative md:flex' : 'hidden md:flex'"
+  class="flex-col w-64 bg-white dark:bg-neutral-800 border-r border-neutral-200 dark:border-neutral-700 transition-all duration-300 ease-in-out"
+>
+  <!-- Overlay for mobile -->
+  <div 
+    *ngIf="open"
+    class="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+    (click)="toggle()"
+  ></div>
+
+  <div class="flex flex-col h-full">
+    <!-- Logo/Header -->
+    <div class="px-6 py-4 border-b border-neutral-200 dark:border-neutral-700">
+      <h2 class="text-xl font-bold text-primary-dark dark:text-primary-light">Energy Monitor</h2>
+    </div>
+
+    <!-- Navigation Items -->
+    <ul class="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
+      <li *ngFor="let item of navItems">
+        <a
+          routerLink="{{item.path}}"
+          routerLinkActive="bg-primary-100 dark:bg-neutral-700 text-primary-dark dark:text-white"
+          [routerLinkActiveOptions]="{exact: true}"
+          class="flex items-center px-4 py-3 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors duration-200"
+          (click)="open && toggle()"
+        >
+          <span class="mr-3">{{ item.icon }}</span>
+          <span class="font-medium">{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Footer/User Info -->
+    <div class="px-4 py-3 border-t border-neutral-200 dark:border-neutral-700">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <span class="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary-100 dark:bg-neutral-700">
+            <span class="text-primary-dark dark:text-white">{{ getUserInitials() }}</span>
+          </span>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm font-medium text-neutral-800 dark:text-white">
+            {{ user?.prenom }} {{ user?.nom }}
+          </p>
+          <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,6 +1,33 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
-  <app-kpi-card label="Salles" value="{{ roomsCount }}"></app-kpi-card>
-  <app-kpi-card label="Capteurs" value="{{ sensorsCount }}"></app-kpi-card>
-  <app-kpi-card label="Mesures" value="--"></app-kpi-card>
-  <app-kpi-card label="Utilisateurs" value="--"></app-kpi-card>
+<div class="p-6 space-y-6 bg-gray-50 min-h-full">
+
+
+  <!-- KPI CARDS -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <app-kpi-card
+      title="Salles"
+      [value]="roomsCount"
+      icon="🏠"
+    ></app-kpi-card>
+    <app-kpi-card
+      title="Capteurs"
+      [value]="sensorsCount"
+      icon="📡"
+    ></app-kpi-card>
+    <app-kpi-card
+      title="Mesures"
+     
+    ></app-kpi-card>
+    <app-kpi-card
+      title="Utilisateurs"
+      
+    ></app-kpi-card>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- CHART -->
+    
+
+
+  </section>
 </div>

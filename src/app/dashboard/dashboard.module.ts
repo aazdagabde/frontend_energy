@@ -7,6 +7,7 @@ import { DashboardOverviewComponent } from './pages/dashboard-overview/dashboard
 import { SharedModule }         from '../shared/shared.module';
 
 
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -15,6 +16,7 @@ import { SharedModule }         from '../shared/shared.module';
   imports: [
     CommonModule,
     SharedModule,
+  
     DashboardRoutingModule
   ]
 })

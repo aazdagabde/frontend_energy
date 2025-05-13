@@ -1,0 +1,18 @@
+<!-- src/app/measurements/components/filter-panel/filter-panel.component.html -->
+<form [formGroup]="form" class="flex space-x-4 items-end">
+  <div>
+    <label>Pièce</label>
+    <select formControlName="room" class="border p-1 rounded">
+      <option *ngFor="let r of rooms" [value]="r">{{ r }}</option>
+    </select>
+  </div>
+  <div>
+    <label>Période</label>
+    <select formControlName="range" class="border p-1 rounded">
+      <option value="7days">7 jours</option>
+      <option value="month">Mois</option>
+      <option value="6months">6 mois</option>
+      <option value="year">Année</option>
+    </select>
+  </div>
+</form>

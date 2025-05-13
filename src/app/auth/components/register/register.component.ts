@@ -3,23 +3,25 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
-  AbstractControl,
-  ValidatorFn
+  ValidationErrors,
+  ValidatorFn,
+  AbstractControl
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../../core/services/auth.service';
 import { RegisterDto } from '../../../core/models/auth.model';
 
 @Component({
   selector: 'app-register',
-  standalone: false,
+  standalone : false,
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
   form: FormGroup;
-  loading = false;           // <-- ajouté
-  error: string | null = null; // <-- ajouté
+  loading = false;
+  error: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -28,43 +30,58 @@ export class RegisterComponent {
   ) {
     this.form = this.fb.group(
       {
-        username:  ['', Validators.required],
-        password:  ['', [Validators.required, Validators.minLength(3)]],
-        confirm:   ['', Validators.required],
-        email:     ['', [Validators.required, Validators.email]],
-        nom:       ['', Validators.required],
-        prenom:    ['', Validators.required],
-        telephone: ['', Validators.required]
+        username: ['', Validators.required],
+        email: [
+          '',
+          [Validators.required, Validators.email]
+        ],
+        password: [
+          '',
+          [Validators.required, Validators.minLength(3)]
+        ],
+        confirm: ['', Validators.required],
+        nom: ['', Validators.required],
+        prenom: ['', Validators.required],
+        telephone: [
+          '',
+          [Validators.required, Validators.pattern(/^\d{10}$/)]
+        ]
       },
-      { validators: this.matchPasswords('password', 'confirm') }
+      { validators: this.passwordsMatchValidator }
     );
   }
 
-  // Validateur compatible Angular Forms
-  private matchPasswords(a: string, b: string): ValidatorFn {
-    return (control: AbstractControl) => {
-      const fg = control as FormGroup;
-      return fg.get(a)!.value === fg.get(b)!.value
-        ? null
-        : { noMatch: true };
-    };
-  }
+  /** Assure que password et confirm sont identiques */
+  private passwordsMatchValidator: ValidatorFn = (
+    group: AbstractControl
+  ): ValidationErrors | null => {
+    const pw = group.get('password')?.value;
+    const cf = group.get('confirm')?.value;
+    return pw && cf && pw === cf
+      ? null
+      : { noMatch: true };
+  };
 
   submit(): void {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
     this.loading = true;
     this.error = null;
+    const dto: RegisterDto = this.form.value;
 
-    const data = this.form.value as RegisterDto;
-    this.auth.register(data).subscribe({
-      next: () => {
-        this.loading = false;
-        this.router.navigate(['/auth/login']);
-      },
-      error: (e) => {
-        this.error = e.error?.message || 'Échec de l’inscription';
-        this.loading = false;
-      }
-    });
+    this.auth
+      .register(dto)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: () => this.router.navigate(['/auth/login']),
+        error: (e) => {
+          this.error =
+            e.error?.message ||
+            'Une erreur est survenue (Username ou Email déja existe), réessayez.';
+        }
+      });
   }
 }
